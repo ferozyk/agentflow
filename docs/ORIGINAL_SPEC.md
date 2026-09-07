@@ -1,3 +1,9 @@
+> **Archived — original brief, preserved verbatim.**
+> This is the spec Agent Flow was built against, kept unedited as a record of what was
+> asked for versus what was delivered. It describes the original time-box and scope; for
+> what the system actually does today, see [`../README.md`](../README.md), and for the
+> interfaces see [`CONTRACT.md`](CONTRACT.md).
+
 # Agent Flow — AI Engineering Interview Demo
 
 Build a small, polished AI Engineering interview demo called **Agent Flow**.

@@ -1,7 +1,7 @@
 """Deterministic input guardrail: prompt-injection / secret-exfiltration detection.
 
 Intentionally simple regex/keyword matching — the point (see docs/CONTRACT.md section 9
-and INSTRUCTIONS.md "Why the LLM is NOT the security boundary") is that this runs in code
+and docs/ORIGINAL_SPEC.md "Why the LLM is NOT the security boundary") is that this runs in code
 BEFORE any LLM call, so a malicious request never reaches a model at all.
 """
 from __future__ import annotations

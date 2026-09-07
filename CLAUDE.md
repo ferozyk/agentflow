@@ -4,19 +4,19 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Repository state
 
-This repository is currently empty of code — there is no implementation, no `pyproject.toml`, no README, and no commits on `main`. The only substantive file is `INSTRUCTIONS.md`, which is the full build spec for a project called **Agent Flow**. Treat `INSTRUCTIONS.md` as the authoritative source of requirements: read it in full before writing any code, and re-check it when priorities are unclear.
+The project is implemented and complete within its stated scope. `docs/ORIGINAL_SPEC.md` is the original build spec and remains the authoritative source of *requirements*; `docs/CONTRACT.md` defines the *interfaces*. `README.md` documents what is actually implemented — prefer it over the spec when describing current behaviour.
 
-There are no build/lint/test commands yet because nothing has been scaffolded. Once the project is initialized (Python + `pyproject.toml`), add real commands here rather than guessing at conventions.
+Common commands: `uv run pytest -q` (157 tests), `uv run agentflow doctor | build | serve`, and the targets in `Makefile`.
 
 ## What Agent Flow is
 
-A ~3-hour interview demo (not a production system) that demonstrates agentic AI / multi-agent orchestration end-to-end: a Slack slash command triggers a background multi-agent workflow (via PydanticAI) that generates a static website, tracked with an observability dashboard (latency, tokens, tracing, guardrails, evaluation).
+A deliberately scoped demonstration of agentic AI / multi-agent orchestration end-to-end: a Slack slash command triggers a background multi-agent workflow (via PydanticAI) that generates a static website, tracked with an observability dashboard (latency, tokens, tracing, guardrails, evaluation).
 
 ## The single hard constraint
 
-**Every LLM call must use an OpenRouter FREE model** (default `OPENROUTER_MODEL=openrouter/free`, or an explicit `:free`-suffixed model). No OpenAI/Anthropic/Gemini/Groq/Together/Mistral or any paid OpenRouter model, ever. If the configured model isn't clearly free, **fail fast and loud** — never silently fall back to a paid model. Provider, model, and pricing status ($0.00 only when actually free) must be visible in Slack messages, the dashboard, and startup logs. Do not fabricate pricing, caching, or latency-percentile claims when data/support doesn't exist — display explicit "not available" messages instead (see INSTRUCTIONS.md's Prompt Caching and Latency sections for exact wording expectations).
+**Every LLM call must use an OpenRouter FREE model** (default `OPENROUTER_MODEL=openrouter/free`, or an explicit `:free`-suffixed model). No OpenAI/Anthropic/Gemini/Groq/Together/Mistral or any paid OpenRouter model, ever. If the configured model isn't clearly free, **fail fast and loud** — never silently fall back to a paid model. Provider, model, and pricing status ($0.00 only when actually free) must be visible in Slack messages, the dashboard, and startup logs. Do not fabricate pricing, caching, or latency-percentile claims when data/support doesn't exist — display explicit "not available" messages instead (see the spec's Prompt Caching and Latency sections for exact wording expectations).
 
-## Intended architecture (per INSTRUCTIONS.md)
+## Intended architecture (per docs/ORIGINAL_SPEC.md)
 
 Suggested layout — simplify further if a smaller structure suffices:
 
@@ -60,7 +60,7 @@ Each agent receives only the minimal input it needs (a key token-optimization te
 
 ## Build priority (do not reorder)
 
-P0 (must work end-to-end first) → P1 → P2 → P3 → P4 (do not build). See INSTRUCTIONS.md for the full breakdown. In short:
+P0 (must work end-to-end first) → P1 → P2 → P3 → P4 (do not build). See docs/ORIGINAL_SPEC.md for the full breakdown. In short:
 - **P0**: Slack → background workflow → Planner → Designer+Content → Developer → website → Evaluator → Slack result.
 - **P1**: Dashboard, latency, token tracking, tracing, provider/model display.
 - **P2**: Guardrails UI, evaluation UI.
@@ -71,6 +71,6 @@ Do not introduce Kafka, Redis, PostgreSQL, Kubernetes, microservices, or other h
 
 ## Working in this repo
 
-- Before scaffolding, decide (or ask) whether to follow the suggested `agent-flow/` structure literally or flatten it — INSTRUCTIONS.md explicitly permits simplifying it.
+- Before scaffolding, decide (or ask) whether to follow the suggested `agent-flow/` structure literally or flatten it — docs/ORIGINAL_SPEC.md explicitly permits simplifying it.
 - `.env` is gitignored; never read or expose its contents, and make sure the Developer agent's sandboxed filesystem tool cannot reach it.
 - When in doubt about scope, default to the stated priority: **working demo > visual polish > observability > advanced features > production architecture**.

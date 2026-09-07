@@ -30,7 +30,7 @@ from .observability.tracing import AGENT_NAMES, STORE, RunTrace
 
 logger = logging.getLogger("agentflow.slack")
 
-# Emoji per INSTRUCTIONS.md "Main Demo Scenario" / "Slack Integration" examples.
+# Emoji per docs/ORIGINAL_SPEC.md "Main Demo Scenario" / "Slack Integration" examples.
 AGENT_EMOJI = {
     "Planner": "🧠",
     "Designer": "🎨",
@@ -94,7 +94,7 @@ def _aggregate_llm_stats(trace: RunTrace) -> tuple[int, int, int, int, float]:
 
 
 def format_initial_message(run_id: str) -> str:
-    """The ack-time message: Planner RUNNING, the rest WAITING (INSTRUCTIONS.md
+    """The ack-time message: Planner RUNNING, the rest WAITING (docs/ORIGINAL_SPEC.md
     "Main Demo Scenario"). Posted before we've received any real trace snapshot —
     the background workflow starts Planner immediately, so this is accurate as of
     the moment of posting and is superseded by format_progress_message on the

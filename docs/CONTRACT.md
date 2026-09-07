@@ -1,7 +1,7 @@
 # Agent Flow — Shared Build Contract (AUTHORITATIVE)
 
 Every subagent codes against THIS file. Do not rename/move anything defined here.
-`INSTRUCTIONS.md` = product requirements. This file = the interfaces. On conflict, this file wins on *interfaces*, INSTRUCTIONS.md wins on *requirements*.
+`docs/ORIGINAL_SPEC.md` = product requirements. This file = the interfaces. On conflict, this file wins on *interfaces*, docs/ORIGINAL_SPEC.md wins on *requirements*.
 
 ## 0. Verified environment facts (measured 2026-08-31 — do NOT re-litigate or assume)
 

@@ -7,12 +7,14 @@ Designer, Content, Developer, Evaluator) built on **PydanticAI**, running entire
 **OpenRouter free models**, with an in-memory observability dashboard showing every LLM
 call, token count, latency, guardrail event, and evaluation score in real time.
 
-It was built as a self-contained interview demo (see `INSTRUCTIONS.md` for the original
-spec and `docs/CONTRACT.md` for the interface contract the code was written against),
-not a production system: the state is in-memory, the workflow runs in a single process,
-and it deliberately uses only free-tier inference. The code is complete — 108 tests
-(`uv run pytest -q`) — and this README documents what is actually implemented, not an
-aspirational roadmap.
+It was built as a self-contained exercise in multi-agent architecture — deliberately
+scoped rather than unfinished: the state is in-memory, the workflow runs in a single
+process, and it uses only free-tier inference, each of which is a stated constraint
+rather than an oversight. Within that scope the system is complete: 157 tests
+(`uv run pytest -q`), working guardrails, a two-track evaluation design, and full
+per-call observability. This README documents what is actually implemented, not an
+aspirational roadmap. See `docs/ORIGINAL_SPEC.md` for the spec it was built against and
+`docs/CONTRACT.md` for the interface contract.
 
 ## Contents
 
