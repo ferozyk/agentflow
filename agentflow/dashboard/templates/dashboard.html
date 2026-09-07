@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Agent Flow — AI Website Builder</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-title">Agent Flow</div>
+      <div class="brand-sub">AI Website Builder</div>
+    </div>
+    <div id="status-badge" class="badge badge-idle">NO RUN YET</div>
+  </header>
+
+  <main class="layout">
+    <section class="panel build-panel">
+      <h2>Start a build</h2>
+      <p class="muted">Slack-free fallback — triggers the same orchestrator run.</p>
+      <form id="build-form">
+        <input id="build-input" type="text" placeholder="Build a landing page for..." autocomplete="off" />
+        <button type="submit" id="build-btn">Build</button>
+      </form>
+      <div id="build-error" class="error-text" hidden></div>
+
+      <h3>Recent runs</h3>
+      <ul id="run-list" class="run-list">
+        {% for r in runs %}
+        <li>
+          <a href="/run/{{ r.run_id }}" class="{% if r.run_id == initial_run_id %}active{% endif %}">
+            {{ r.run_id }} — {{ r.status }}
+          </a>
+        </li>
+        {% else %}
+        <li class="muted">No runs yet.</li>
+        {% endfor %}
+      </ul>
+    </section>
+
+    <section class="panel main-panel" id="main-panel">
+      <div id="empty-state" class="empty-state" {% if initial_run_id %}hidden{% endif %}>
+        Start a build above, or trigger one from Slack with <code>/build-website</code>.
+      </div>
+
+      <div id="run-gone" class="run-gone-state" hidden></div>
+
+      <div id="run-content" {% if not initial_run_id %}hidden{% endif %}>
+
+        <section class="panel">
+          <h2>Overview</h2>
+          <div class="grid grid-4" id="overview-grid"></div>
+        </section>
+
+        <section class="panel">
+          <h2>Overall metrics</h2>
+          <div class="grid grid-4" id="metrics-grid"></div>
+        </section>
+
+        <section class="panel">
+          <h2>Agent workflow</h2>
+          <div id="workflow-viz"></div>
+        </section>
+
+        <section class="panel">
+          <h2>Execution timeline</h2>
+          <ol id="timeline" class="timeline"></ol>
+        </section>
+
+        <section class="panel">
+          <h2>Guardrail events</h2>
+          <div id="guardrails"></div>
+        </section>
+
+        <section class="panel">
+          <h2>Evaluation</h2>
+          <div id="evaluation"></div>
+        </section>
+
+        <section class="panel">
+          <h2>Latency percentiles</h2>
+          <div id="latency"></div>
+        </section>
+
+        <section class="panel">
+          <h2>Prompt caching</h2>
+          <div id="caching"></div>
+        </section>
+
+        <section class="panel">
+          <h2>Generated site</h2>
+          <div id="site-link"></div>
+        </section>
+
+      </div>
+    </section>
+  </main>
+
+  <script id="bootstrap-data" type="application/json">
+    {"initial_run_id": {{ initial_run_id | tojson }}, "latency": {{ latency_json | safe }}, "public_base_url": {{ public_base_url | tojson }}}
+  </script>
+  <script src="/static/app.js"></script>
+</body>
+</html>

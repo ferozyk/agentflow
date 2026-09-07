@@ -1,0 +1,23 @@
+display_information:
+  name: Agent Flow
+  description: AI multi-agent website builder
+  background_color: "#141428"
+features:
+  bot_user:
+    display_name: Agent Flow
+    always_online: true
+  slash_commands:
+    - command: /build-website
+      description: Build a website using the Agent Flow multi-agent workflow
+      usage_hint: "a modern landing page for an AI engineering company"
+      should_escape: false
+oauth_config:
+  scopes:
+    bot:
+      - commands
+      - chat:write
+      - chat:write.public
+settings:
+  socket_mode_enabled: true
+  org_deploy_enabled: false
+  token_rotation_enabled: false
